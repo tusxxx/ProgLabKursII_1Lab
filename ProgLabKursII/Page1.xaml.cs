@@ -20,8 +20,23 @@ namespace ProgLabKursII
         public Page1()
         {
             InitializeComponent();
+            DisablePasting();
         }
 
+        private void DisablePasting()
+        {
+            var textBoxes = new[] { A, B, H, Mass };
+            foreach (var textBox in textBoxes)
+            {
+                DataObject.AddPastingHandler(textBox, OnPaste);
+            }
+        }
+
+        private void OnPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            e.CancelCommand();
+        }
+        
         private void AnswerButton_Click(object sender, RoutedEventArgs e)
         {
             double.TryParse(A.Text, out var a);

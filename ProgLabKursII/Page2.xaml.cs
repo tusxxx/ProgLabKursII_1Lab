@@ -25,6 +25,21 @@ namespace ProgLabKursII
         public Page2()
         {
             InitializeComponent();
+            DisablePasting();
+        }
+
+        private void DisablePasting()
+        {
+            var textBoxes = new[] { PhoneText, PhoneSetupText, SurnameText };
+            foreach (var textBox in textBoxes)
+            {
+                DataObject.AddPastingHandler(textBox, OnPaste);
+            }
+        }
+
+        private void OnPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            e.CancelCommand();
         }
 
         private void GenerateButtonClick(object sender, RoutedEventArgs e)
